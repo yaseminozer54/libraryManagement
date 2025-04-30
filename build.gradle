@@ -40,3 +40,6 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+bootJar {
+    mainClass = 'com.example.librarymanagement.LibraryManagementApplication'
+}
