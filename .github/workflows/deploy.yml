@@ -38,14 +38,10 @@ jobs:
       - name: Push to DockerHub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/library-management:latest
 
-      - name: Set up SSH key
+      
+      - name: Copy JAR to EC2
         run: |
-            echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
-            chmod 600 key.pem
-            mkdir -p ~/.ssh
-            ssh-keyscan -H 13.53.38.4 >> ~/.ssh/known_hosts
-        shell: bash
-
-      - name: Connect and deploy
-        run: scp -i key.pem build/libs/libraryManagement-0.0.1-SNAPSHOT.jar ec2-user@13.53.38.4:/home/ec2-user/
+          echo "${{ secrets.EC2_SSH_KEY }}" | base64 -d > key.pem
+          chmod 600 key.pem
+          scp -o StrictHostKeyChecking=no -i key.pem build/libs/*.jar ec2-user@13.53.38.4:/home/ec2-user/
       
