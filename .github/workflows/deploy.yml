@@ -47,5 +47,5 @@ jobs:
         shell: bash
 
       - name: Connect and deploy
-        run: scp -i key.pem build/libs/libraryManagement-0.0.1-SNAPSHOT.jar ec2-user@13.53.38.4/root
+        run: scp -i key.pem build/libs/libraryManagement-0.0.1-SNAPSHOT.jar ec2-user@13.53.38.4:/home/ec2-user/
       
